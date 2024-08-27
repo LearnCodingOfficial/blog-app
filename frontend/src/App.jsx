@@ -22,14 +22,18 @@ function App() {
   const { blogs, isAuthenticated } = useAuth();
   console.log(blogs);
   console.log(isAuthenticated);
-  if (isAuthenticated === false) {
-    return <Login />;
-  }
+ 
   return (
     <div>
       {!hideNavbarFooter && <Navbar />}
       <Routes>
-        <Route exact path="/" element={<Home />} />
+       <Route
+          exact
+          path="/"
+          element={
+            isAuthenticated === true ? <Home /> : <Navigate to={"/login"} />
+          }
+        />
         <Route exact path="/blogs" element={<Blogs />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />
