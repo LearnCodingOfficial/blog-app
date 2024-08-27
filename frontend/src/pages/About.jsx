@@ -1,14 +1,21 @@
 import React from "react";
+import { useAuth } from "../context/AuthProvider";
 
 function About() {
+  const { profile } = useAuth();
+  console.log(profile);
   return (
     <div className="container mx-auto my-12 p-4 space-y-9">
       <h1 className="text-2xl font-bold mb-6">About</h1>
       <p>
-        This is <strong>Akhik K</strong> a proficient full stack developer with
-        a robust skill set spanning both front-end and back-end technologies.
-        With a passion for building dynamic, responsive, and user-friendly web
-        applications, Akhil excels in crafting seamless digital experiences.
+        This is{" "}
+        <strong className="text-blue-800 font-semibold hover:scale-105 duration-500">
+          {profile?.user?.name}
+        </strong>{" "}
+        a proficient full stack developer with a robust skill set spanning both
+        front-end and back-end technologies. With a passion for building
+        dynamic, responsive, and user-friendly web applications, Akhil excels in
+        crafting seamless digital experiences.
       </p>
       <h2 className="font-semibold text-blue-800 text-xl">
         Technical Expertise:
