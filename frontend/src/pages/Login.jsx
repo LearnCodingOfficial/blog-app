@@ -40,7 +40,12 @@ function Login() {
       navigateTo("/");
     } catch (error) {
       console.log(error);
-      toast.error(error || "Please fill the required fields");
+       toast.error(
+        error.response.data.message || "Please fill the required fields",
+        {
+          duration: 3000,
+        }
+      );
     }
   };
 
