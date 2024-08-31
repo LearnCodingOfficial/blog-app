@@ -41,7 +41,7 @@ function Login() {
     } catch (error) {
       console.log(error);
        toast.error(
-        error.response.data.message || "Please fill the required fields",
+        error.response.error.data.message || "Please fill the required fields",
         {
           duration: 3000,
         }
