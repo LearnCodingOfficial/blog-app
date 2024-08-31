@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = Cookies.get("token");
+        const token = Cookies.get("jwt");
         const parsedToken = token ? JSON.parse(token) : undefined;
         if (parsedToken) {
           const { data } = await axios.get(
