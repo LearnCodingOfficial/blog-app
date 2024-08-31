@@ -26,7 +26,7 @@ function Login() {
         {
           withCredentials: true,
           headers: {
-            "Content-Type": "multipart/form-data",
+           "Content-Type": "application/json",
           },
         }
       );
