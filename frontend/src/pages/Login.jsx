@@ -15,10 +15,6 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!email || !password || !role) {
-      toast.error("Please fill all fields");
-    }
-
     try {
       const { data } = await axios.post(
         "http://localhost:4001/api/users/login",
@@ -26,12 +22,16 @@ function Login() {
         {
           withCredentials: true,
           headers: {
-           "Content-Type": "application/json",
+            "Content-Type": "application/json",
           },
         }
       );
       console.log(data);
-      toast.success(data.message || "User Logined successfully");
+      // Store the token in localStorage
+      localStorage.setItem("jwt", data.token); // storing token in localStorage so that if user refreshed the page it will not redirect again in login
+      toast.success(data.message || "User Logined successfully", {
+        duration: 3000,
+      });
       setProfile(data);
       setIsAuthenticated(true);
       setEmail("");
@@ -40,8 +40,8 @@ function Login() {
       navigateTo("/");
     } catch (error) {
       console.log(error);
-       toast.error(
-        error.response.error.data.message || "Please fill the required fields",
+      toast.error(
+        error.response.data.message || "Please fill the required fields",
         {
           duration: 3000,
         }
