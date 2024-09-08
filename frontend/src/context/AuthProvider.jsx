@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -12,22 +11,21 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = Cookies.get("jwt"); // Retrieve the token directly as a string
-       
-
+        // token should be let type variable because its value will change in every login. (in backend also)
+        let token = localStorage.getItem("jwt"); // Retrieve the token directly from the localStorage (Go to login.jsx)
+        console.log(token);
         if (token) {
           const { data } = await axios.get(
             "http://localhost:4001/api/users/my-profile",
             {
               withCredentials: true,
               headers: {
-                Authorization: `Bearer ${token}`, // Passing the token in the Authorization header
                 "Content-Type": "application/json",
               },
             }
           );
-          console.log(data);
-          setProfile(data);
+          console.log(data.user);
+          setProfile(data.user);
           setIsAuthenticated(true);
         }
       } catch (error) {
