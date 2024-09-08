@@ -54,7 +54,7 @@ export const register = async (req, res) => {
     });
     await newUser.save();
     if (newUser) {
-      const token = await createTokenAndSaveCookies(newUser._id, res);
+      let token = await createTokenAndSaveCookies(newUser._id, res);
       console.log("Singup: ", token);
       res.status(201).json({
         message: "User registered successfully",
@@ -95,7 +95,7 @@ export const login = async (req, res) => {
     if (user.role !== role) {
       return res.status(400).json({ message: `Given role ${role} not found` });
     }
-    const token = await createTokenAndSaveCookies(user._id, res);
+    let token = await createTokenAndSaveCookies(user._id, res);
     console.log("Login: ", token);
     res.status(200).json({
       message: "User logged in successfully",
